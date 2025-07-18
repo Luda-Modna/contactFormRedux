@@ -1,9 +1,15 @@
-import React from 'react'
+import { connect } from 'react-redux'
 
-function ContactsList() {
+function ContactsList ({ contacts }) {
   return (
-    <div>contactsList</div>
+    <ul>
+      {contacts.map(c => (
+        <li key={c.id}>{JSON.stringify(c)}</li>
+      ))}
+    </ul>
   )
 }
 
-export default ContactsList
+const mapStateToProps = ({ contactsData }) => contactsData
+
+export default connect(mapStateToProps)(ContactsList)
