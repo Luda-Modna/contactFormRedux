@@ -5,11 +5,13 @@ const initialState = {
   contacts: [
     {
       id: uuidv4(),
+      isFavorite: false,
       fullName: 'Test',
       phone: '+380987654321'
     },
     {
       id: uuidv4(),
+      isFavorite: false,
       fullName: 'Max',
       phone: '+380987654322'
     }
@@ -22,12 +24,19 @@ const contactsSlice = createSlice({
   reducers: {
     deleteContact: (state, { payload }) => {
       state.contacts = state.contacts.filter(c => c.id !== payload)
+    },
+    updateContact: (state, { payload: { id, data } }) => {
+      const updateContactIndex = state.contacts.findIndex(c => c.id === id)
+      state.contacts[updateContactIndex] = {
+        ...state.contacts[updateContactIndex],
+        ...data
+      }
     }
   }
 })
 
 const { reducer, actions } = contactsSlice
 
-export const { deleteContact } = actions
+export const { deleteContact, updateContact } = actions
 
 export default reducer
