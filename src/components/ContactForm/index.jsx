@@ -1,9 +1,51 @@
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
+import { connect } from 'react-redux'
+import { CONTACT_VALIDATION_SCHEMA } from '../../utils/validationSchemas'
+import { createContact } from '../../store/slices/contactsSlice'
 
-function ContactsForm() {
+function ContactsForm ({ createNewContact }) {
+  const initialValue = { fullName: '', phone: '' }
+
+  const submitHandler = (values, { resetForm }) => {
+    createNewContact(values)
+    resetForm()
+  }
+
   return (
-    <div>ContactsForm</div>
+    <Formik
+      initialValues={initialValue}
+      onSubmit={submitHandler}
+      validationSchema={CONTACT_VALIDATION_SCHEMA}
+    >
+      <Form>
+        <label>
+          Name:
+          <Field
+            name='fullName'
+            type='text'
+            placeholder='ContactName'
+            autoFocus
+          />
+        </label>
+        <label>
+          Phone:
+          <Field
+            name='phone'
+            type='text'
+            maxLength='13'
+            placeholder='+ xx xxx xxx xx xx'
+          />
+          <ErrorMessage name='phone' component='div' />
+        </label>
+        <button type='submit'>Add</button>
+      </Form>
+    </Formik>
   )
 }
 
-export default ContactsForm
+const mapDispatchToProps = dispatch => ({
+  createNewContact: data => dispatch(createContact(data))
+})
+
+export default connect(null, mapDispatchToProps)(ContactsForm)
