@@ -1,15 +1,20 @@
 import { connect } from 'react-redux';
 import React, { useEffect } from 'react';
 import { getPostThunk } from '../../store/slices/postsSlice';
+import { getUsersThunk } from '../../store/slices/usersSlice';
 
-function PostList ({ posts, isFetching, error, getPost }) {
+function PostList ({ posts, isFetching, error, users, getPost, getUsers }) {
   useEffect(() => {
     getPost();
+    getUsers();
   }, []);
 
   const mapProps = p => (
     <li key={p.id}>
       <h3>{p.title}</h3>
+      {!!users.length && (
+        <span>{users.find(u => u.id === p.userId).username}</span>
+      )}
       <p>{p.body}</p>
     </li>
   );
@@ -23,10 +28,14 @@ function PostList ({ posts, isFetching, error, getPost }) {
   );
 }
 
-const mapStateToProps = ({ postsList }) => postsList;
+const mapStateToProps = ({ postsList, usersList: { users } }) => ({
+  ...postsList,
+  users,
+});
 
 const mapDispatchToProps = dispatch => ({
   getPost: () => dispatch(getPostThunk()),
+  getUsers: () => dispatch(getUsersThunk()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostList);

@@ -6,6 +6,8 @@ const axiosInstance = axios.create({
 
 export const getPosts = () => axiosInstance.get('/posts');
 
+export const getUsers = () => axiosInstance.get('/users');
+
 // axios
 //   .get('https://randomuser.me/api/?results=2')
 //   .then(data => console.log(data.data))
