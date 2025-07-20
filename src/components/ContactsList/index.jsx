@@ -1,10 +1,10 @@
-import { connect } from 'react-redux'
-import { deleteContact, updateContact } from '../../store/slices/contactsSlice'
+import { connect } from 'react-redux';
+import { deleteContact, updateContact } from '../../store/slices/contactsSlice';
 
 function ContactsList ({ contacts, deleteContactById, updateContactById }) {
   const isChangeFavorite = (id, checked) => {
-    updateContactById(id, { isFavorite: checked })
-  }
+    updateContactById(id, { isFavorite: checked });
+  };
 
   return (
     <ul>
@@ -15,7 +15,7 @@ function ContactsList ({ contacts, deleteContactById, updateContactById }) {
               type='checkbox'
               checked={c.isFavorite}
               onChange={({ target: { checked } }) => {
-                isChangeFavorite(c.id, checked)
+                isChangeFavorite(c.id, checked);
               }}
             />
             {JSON.stringify(c)}
@@ -24,14 +24,14 @@ function ContactsList ({ contacts, deleteContactById, updateContactById }) {
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
-const mapStateToProps = ({ contactsData }) => contactsData
+const mapStateToProps = ({ contactsData }) => contactsData;
 
 const mapDispatchToProps = dispatch => ({
   deleteContactById: id => dispatch(deleteContact(id)),
-  updateContactById: (id, data) => dispatch(updateContact({ id, data }))
-})
+  updateContactById: (id, data) => dispatch(updateContact({ id, data })),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsList)
+export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);

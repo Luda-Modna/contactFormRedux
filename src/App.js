@@ -1,7 +1,7 @@
-import ContactsPage from './pages/ContactsPage'
+import ContactsPage from './pages/ContactsPage';
 
 function App () {
-  return <ContactsPage />
+  return <ContactsPage />;
 }
 
-export default App
+export default App;

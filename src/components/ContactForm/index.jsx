@@ -1,16 +1,16 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik'
-import React from 'react'
-import { connect } from 'react-redux'
-import { CONTACT_VALIDATION_SCHEMA } from '../../utils/validationSchemas'
-import { createContact } from '../../store/slices/contactsSlice'
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React from 'react';
+import { connect } from 'react-redux';
+import { CONTACT_VALIDATION_SCHEMA } from '../../utils/validationSchemas';
+import { createContact } from '../../store/slices/contactsSlice';
 
 function ContactsForm ({ createNewContact }) {
-  const initialValue = { fullName: '', phone: '' }
+  const initialValue = { fullName: '', phone: '' };
 
   const submitHandler = (values, { resetForm }) => {
-    createNewContact(values)
-    resetForm()
-  }
+    createNewContact(values);
+    resetForm();
+  };
 
   return (
     <Formik
@@ -41,11 +41,11 @@ function ContactsForm ({ createNewContact }) {
         <button type='submit'>Add</button>
       </Form>
     </Formik>
-  )
+  );
 }
 
 const mapDispatchToProps = dispatch => ({
-  createNewContact: data => dispatch(createContact(data))
-})
+  createNewContact: data => dispatch(createContact(data)),
+});
 
-export default connect(null, mapDispatchToProps)(ContactsForm)
+export default connect(null, mapDispatchToProps)(ContactsForm);
